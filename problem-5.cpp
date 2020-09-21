@@ -20,14 +20,38 @@ ull hcf(ull a, ull b){
 ull lcm(ull a, ull b){
     return (a/hcf(a,b))*b;
 }
-int main()
-{
+
+ull lcm_1st_n_expensive(ull n){
     ull product = 1;
     for(ull i=1;i<=20;i++){
         product = lcm(product,i);
         //cout<<product<<endl;
+    }   
+    return product;
+}
+/**
+ * for the logic: https://projecteuler.net/overview=005
+ * 
+**/
+
+ull primes[] = {2,3,5,7,11,13,17,19,23,29,31,37,41,43,47};
+ull lcm_1st_n_efficient(ull n){
+    ull prod = 1;
+    for(ull i =0;primes[i]<n;i++){
+           if(primes[i] < sqrt(n)){
+                prod *= pow(primes[i] , floor(log(n)/log(primes[i]))) ;
+                //cout<<primes[i]<<"^"<<floor(log(n)/log(primes[i]))<<" * ";
+           }else{
+               prod *= primes[i];
+               //cout<<primes[i]<<" * ";
+           }
     }
-    cout<<product<<endl;
+    return prod;
+}
+int main()
+{
+    cout<<lcm_1st_n_efficient(20)<<endl;
+    cout<<lcm_1st_n_expensive(20)<<endl;
     
     
 }
